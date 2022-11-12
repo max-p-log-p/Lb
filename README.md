@@ -33,29 +33,30 @@ Basic Features
 
 For more features read the less manpage.
 
-Installing
-----------
-Build Dependencies: coreutils, util-linux, less
+## Installation
+Build Dependencies: coreutils, util-linux, less  
 Runtime Dependencies: python3, less (with command support), curl
 
-Run 
+## Building
 
 $ `make`
 
+## Configuration
+
 Add the following lines to your shell's rc file:
 
-export USER_AGENT='Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0'
-export JAR=~/.lb/cookie
+export USER_AGENT='Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0'  
+export JAR=~/.lb/cookie  
 export OUT='\n%{url_effective}'
 
 Add the following line to your /etc/fstab file:
 
-Linux:
-tmpfs /home/$USER/.lb/pages tmpfs uid=$USER,gid=$USER,mode=700,noatime,nodev,nosuid,noexec 0 0
+Linux:  
+tmpfs /home/$USER/.lb/pages tmpfs uid=$USER,gid=$USER,mode=700,noatime,nodev,nosuid,noexec 0 0  
 touch ~/.lb/pages/{1..32}
 
-OpenBSD:
-swap /home/$USER/.lb/pages mfs noatime,nodev,nosuid,noexec 0 0
+OpenBSD:  
+swap /home/$USER/.lb/pages mfs noatime,nodev,nosuid,noexec 0 0  
 for i in $(jot 32); do touch ~/.lb/pages/$i; done
 
 .lesskey
