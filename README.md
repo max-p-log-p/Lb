@@ -63,7 +63,6 @@ for i in $(jot 32); do touch ~/.lb/pages/$i; done
 ------
 The l keybinding is used for clicking links. The p keybinding is used for http requests that send form data via a post request. The --data-raw option is necessary to send data in POST requests. To send a form with get data, use the l keybinding. The w keybinding is used to request a url. The c keybinding is used to request raw html. This allows the user to modify the html to fix errors or manually interpret javascript followed by a reparsing of the webpage. The i keybinding is used to make google search queries. After typing i, enter a urlencoded search query.
 
-html macro
 The user agent is provided in the -A option because some websites do not work with curl's user agent. The -L option is convenient because it enables curl to perform redirects. The JAR environment variable is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
 Links
