@@ -28,4 +28,4 @@ Work In Progress
 
 Bugs
 ----
-Please send issues to the email seL4+lb@disroot.org.
+Please send issues to the email seL4 (plus) lb (at) disroot.org.
