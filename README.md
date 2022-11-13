@@ -13,6 +13,7 @@ Add the following lines to your shell's rc file:
 
 Linux:  
 `alias lb='cd ~/.lb/pages; touch {1..32}; LESSKEY=~/.lb/less less -XR {1..32}'`  
+`export PATH=~/bin:"$PATH"`
 
 For performance and security, you can add the following line to your /etc/fstab file:
 
