@@ -3,7 +3,7 @@ INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
-CFLAGS = -O2 -Wall -Wextra -Werror -fanalyzer
+CFLAGS = -O2 -Wall -Wextra -Werror # -fanalyzer
 
 DESTDIR = $(HOME)/bin
 DATADIR = $(HOME)/.lb
