@@ -1,7 +1,7 @@
 Lb - Browser in Less
 ====================
 Build Dependencies: coreutils, util-linux, less  
-Runtime Dependencies: python3, less (with command support), curl
+Runtime Dependencies: python3 (version >= 3.7), less (with command support), curl
 
 ## Building
 
