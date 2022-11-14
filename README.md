@@ -25,6 +25,9 @@ Linux:
 
 This will store web pages in memory, prevent updates to access times, and set strict access control permissions.
 
+## Execution
+`$ lb`
+
 Uninstalling
 ------------
 `$ make uninstall`
