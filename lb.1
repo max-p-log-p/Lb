@@ -1,0 +1,204 @@
+.TH LB 1 lb-VERSION
+.SH NAME
+lb - less browser
+.SH DESCRIPTION
+.B lb
+is a terminal web browser that uses the less pager as an interface.
+Every page is mapped to an integer from 1 to n. 
+The parsed html output is stored in a file named with the integer n.
+The links parsed from the html are stored in a file named with the integer n
+and followed by a "u". 
+This will be for example 2 and 2u.
+The parsed html output is used to display content to the user and the links
+file allows the user to navigate to new pages. 
+Shell commands can be executed if they are supported in less. 
+The basic idea is to browse the web with command line tools.
+.SH KEYBINDINGS
+.TP
+.BI w
+Send a GET request (go to an address)
+.TP
+.BI l
+Go to a link (GET)
+.TP
+.BI f
+Go forward in history
+.TP
+.BI b
+Go backward in history
+.TP
+.BI x
+Go to nth file
+.TP
+.BI E
+Edit new file
+.TP
+.BI :d
+Close file
+.TP
+.BI i
+Perform a search in a web engine (Default: Google)
+.TP
+.BI p
+Send a POST request (form)
+.TP
+.BI e
+Edit a form
+.TP
+.BI S
+Edit form (do not show input)
+.TP
+.BI /
+Search forward
+.TP
+.BI ?
+Search backward
+.TP
+.BI ESC-/
+Search forward (all files)
+.TP
+.BI ESC-?
+Search backward (all files)
+.TP
+.BI D
+Download a file
+.TP
+.BI r
+Parse html
+.TP
+.BI P
+Patch html
+.TP
+.BI U
+Upload file (beta)
+.TP
+.BI H
+Get raw html
+.SH Links
+Links are represented by default as colored integers at the start of a line.
+Green links (GET) have the href attribute and are visited by using the l command.
+
+The actual link is stored in the file {n}u where n is the current file number.
+For example, if the current filename is 2 then the links are stored in 2u.
+
+Each link has a URL and data which are separated by a space or question mark.
+
+To edit a link press `-n` to turn off line numbering. To edit html press `-n` to turn on line numbering.
+Press v to open the file in an editor. 
+Edited links should be urlencoded.
+
+Each link has a link number which corresponds to its position in the link file.
+The first line of the link file always corresponds to the current url of the webpage. 
+
+Links that require user input have two characters followed by the relative url of the form.
+
+Example:
+
+9a?/search
+
+The first character (a) after the link number is the enctype of the form. The enctype is shown to specify how the form-data should be encoded. It is only used for POST requests.
+
+.TP
+.B a 
+application/x-www-form-urlencoded
+.TP
+.B m 
+multipart/form-data
+.TP
+.B t 
+text/plain
+.RE
+
+The second character after the link number (?) is the method of the form. The method is shown to let the user know which method they should use to send data. The dialog method is not supported.
+
+.TP
+.B ? 
+GET
+.TP
+.B ' '
+POST
+.RE
+
+The relative url (/search) is shown to give the user an idea of what the link is used for.  
+
+.SH Configuration (lesskey.m4)
+The --data-raw option is necessary to send data in POST requests.
+The option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data.
+For more information about the options, read the curl manpage.
+For more information about the macros, read the m4 manpage.
+.SH Configuration (.curlrc)
+The user agent is provided in the -A option because some websites do not work with curl's user agent. 
+The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. 
+For more information about the options, read the curl manpage.
+.SH Cookies
+Cookies are stored in ~/.lb/cookie. 
+Cookies can be changed by editing the file with the E keybinding.
+.SH Javascript/Inspect Element
+The user is the Javascript engine.
+Manually edit the html and reparse the file.
+Reparsing can be done by executing :%!html in vi.
+.SH History
+The .lesshst file stores the executed commands. 
+Addresses are not stored by default.
+.SH Bookmarks
+Bookmarks can be created in ~/.lb/bookmarks. 
+Each line should be a link which can be visited with the l command.
+.SH Debugging
+The --debug flag can be added on the command line to curl.
+.SH File Upload (beta)
+Not yet fully supported.
+.SH Extensions
+.TP
+.BI Copy/Paste
+tmux copy-mode
+.TP
+.BI Windows
+tmux new-window
+.TP
+.B Parsing (PDF/Images/Videos)
+Pipe the output from the download command to a parser.
+.SH FILES
+.TP
+.B ~/.*rc
+Environment variables and aliases
+.TP
+.B ~/.lb/lesskey.m4
+Macros for less configuration file
+.TP
+.B ~/.lb/less
+Less configuration file
+.TP
+.B ~/.lb/.curlrc
+Curl configuration file
+.TP
+.B ~/.lb/bookmarks
+Bookmarks
+.TP
+.B ~/.lb/cookie
+Cookie jar
+.TP
+.B ~/.lesshst
+Browser history
+.SH DIRECTORIES
+.TP
+.B ~/.lb
+Contains the configuration files, bookmarks, cookies, patches, scripts, and pages.
+.TP
+.B ~/.lb/pages
+Contains the web pages
+.SH SECURITY
+Many web pages have invalid html. It is possible to fix this by getting the raw html, manually fixing the error, then reparsing with %!lb in vim.
+
+Do not paste urls into the prompt: first paste them into an empty file, then use the l keybinding to request the url. Otherwise, less could potentially interpret some characters as shell metacharacters and execute commands.
+
+It may be possible to use protocol smuggling to attempt a client side request forgery attack. If possible, use the web browser in a network namespace/virtual environment or ensure that services running have some sort of client side request forgery protection.
+.SH CONTACT
+.LP
+Write to sel4+lb (at) disroot (dot) org
+.SH AUTHORS
+lb engineers, see LICENSE file
+.SH SEE ALSO
+.BR less (1),
+.BR vi (1)
+.SH BUGS
+Please report them!
