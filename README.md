@@ -22,6 +22,10 @@ Linux:
 
 This will store web pages in memory, prevent updates to access times, and set strict access control permissions.
 
+Uninstalling
+------------
+`$ make uninstall`
+
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
