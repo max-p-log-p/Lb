@@ -15,6 +15,9 @@ Linux:
 `alias lb='cd ~/.lb/pages; touch {1..32}; LESSKEY=~/.lb/less less -XR {1..32}'`  
 `export PATH=~/bin:"$PATH"`
 
+Update the shell (bash)
+`$ . ~/.bashrc`
+
 For performance and security, you can add the following line to your /etc/fstab file:
 
 Linux:  
