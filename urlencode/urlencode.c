@@ -59,4 +59,6 @@ main()
 		if (write(STDOUT_FILENO, epath, count) < 0)
 			err(1, "write");
 	}
+
+    return 0;
 }
