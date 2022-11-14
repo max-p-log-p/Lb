@@ -1,0 +1,33 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS = "[&=]"
+	line = ARGV[2]
+}
+
+NR == line {
+	# Separate into url and data
+	sep = " "
+	if (split($0, url, sep) != 2) {
+		sep = "?"
+		if (split($0, url, sep) != 2) {
+			exit
+		}
+	} 
+
+	num_params = split(url[2], params)
+
+	"openssl rand -hex 8" | getline rnd
+	prefix = "------------------------"
+
+	for (i = 1; i <= num_params; i += 2) {
+		print "--" prefix rnd > "f"
+		print "Content-Disposition: form-data; name=\"" params[i] "\"" > "f"
+		if (index(params[i + 1], "@") == 1) {
+			print "Content-Type: application/octet-stream" > "f"
+			params[i + 1] = ""
+		}
+		print "\n" params[i + 1] > "f"
+		if (i >= num_params - 1)
+			print "--" prefix rnd "--" > "f"
+	}
+}
